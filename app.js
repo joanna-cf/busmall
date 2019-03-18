@@ -18,10 +18,15 @@ Listen for event ('click')
  
 */
 
+//Create an object for all the objects we have so can refer
+//Array: function to iterate through.
+
 //--------- Global variables --------
 var clicks = 0;
 var allProducts = [];
 var leftImageOnThisPage;
+// var centerImageOnThisPage;
+// var rightImageOnThisPage;
 
 //--------- Constructor function --------
 var Product = function(name, filePath, description){
@@ -37,30 +42,97 @@ var Product = function(name, filePath, description){
 
 var leftImg = document.getElementById('img-left');
 
-function handleClickOnLeftImg (event){
+function handleClick(event){
+  //logs number of clicks
   clicks++;
-  console.log('left image clicked');
+  console.log('clicks no: ' + clicks);
+  console.log(event.target);
 
-  //selects random images
+  //Iterates through all Products and adds timesClicked if it matches
+  for (var k = 0; k < allProducts.length; k++){
+    if (event.target.name === allProducts[k].name){
+      allProducts[k].timesClicked++;
+    }
+  }
+
+  //Selects next random image
   var leftImgIndex = Math.floor(Math.random() * allProducts.length);
-
-  //changes left image to new display image
   leftImageOnThisPage = allProducts[leftImgIndex];
-
   leftImg.src = leftImageOnThisPage.filePath;
+  leftImg.name = leftImageOnThisPage.name;
 
-  if (clicks > 24){
-    leftImg.removeEventListener('click', handleClickOnLeftImg);
+  //Logs number of times this image appears
+  leftImageOnThisPage.timesShown++;
+  console.log(leftImageOnThisPage);
+
+  if (clicks > 9){
+    leftImg.removeEventListener('click', handleClick);
   }
 }
 
-leftImg.addEventListener('click', handleClickOnLeftImg);
-
+leftImg.addEventListener('click', handleClick);
+// centerImg.addEventListener('click', handleClick);
+// rightImg.addEventListener('click', handleClick);
 
 //--------- Instantiate new objects --------
 new Product('bag', 'img/bag.jpg', 'R2D2 bag');
 new Product('banana', 'img/banana.jpg', 'Banana slicer');
 new Product('bathroom', 'img/bathroom.jpg', 'Bathroom iPad stand');
 new Product('boots', 'img/boots.jpg', 'Open-toed boots');
+new Product('breakfast', 'img/breakfast.jpg', 'Breakfast maker');
+new Product('bubblegum', 'img/bubblegum.jpg', 'Meatball bubblegum');
 
-console.log(allProducts);
+// console.log(allProducts);
+
+
+
+
+//CODE I DID THAT WORKED BUT WAS TOO COMPLICATED SO I NEED TO WORK ON OTHER THINGS FIRST
+
+// var leftImg = document.getElementById('img-left');
+// var centerImg = document.getElementById('img-center');
+// var rightImg = document.getElementById('img-right');
+
+// var imgOnPage = [leftImg, centerImg, rightImg];
+// var currentImg;
+// // var productSelected = [];
+
+// function handleClick (event){
+//   clicks++;
+//   // currentImg.timesClicked++;
+//   console.log('user has had ' + clicks + ' clicks.');
+//   // console.log(currentImg);
+//   // console.log('left image clicked');
+
+//   for (var i = 0; i < imgOnPage.length; i++){
+//     var imgIndex = Math.floor(Math.random() * allProducts.length);
+//     currentImg = allProducts[imgIndex];
+//     imgOnPage[i].src = currentImg.filePath;
+//     currentImg.timesShown++;
+//     console.log(currentImg);
+
+//     if (clicks > 24){
+//       imgOnPage[i].removeEventListener('click', handleClick);
+//     }
+//   }
+
+//   // //selects random images
+//   // var leftImgIndex = Math.floor(Math.random() * allProducts.length);
+//   // var centerImgIndex = Math.floor(Math.random() * allProducts.length);
+//   // var rightImgIndex = Math.floor(Math.random() * allProducts.length);
+
+//   // //changes left image to new display image
+//   // leftImageOnThisPage = allProducts[leftImgIndex];
+//   // centerImageOnThisPage = allProducts[centerImgIndex];
+//   // rightImageOnThisPage = allProducts[rightImgIndex];
+
+//   // leftImg.src = leftImageOnThisPage.filePath;
+//   // centerImg.src = centerImageOnThisPage.filePath;
+//   // rightImg.src = rightImageOnThisPage.filePath;
+
+//   // if (clicks > 24){
+//   //   leftImg.removeEventListener('click', handleClick);
+//   //   leftImg.removeEventListener('click', handleClick);
+//   //   leftImg.removeEventListener('click', handleClick);
+//   // }
+// }
