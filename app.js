@@ -55,8 +55,27 @@ function handleClick(event){
     }
   }
 
+  // for (var i = 0; i < imgOnPage.length; i++){
+  //   var imgIndex = Math.floor(Math.random() * allProducts.length);
+  //   currentImg = allProducts[imgIndex];
+  //   imgOnPage[i].src = currentImg.filePath;
+  //   currentImg.timesShown++;
+  //   console.log(currentImg);
+
+  //   if (clicks > 24){
+  //     imgOnPage[i].removeEventListener('click', handleClick);
+  //   }
+  // }
+
   //Selects next random image
   var leftImgIndex = Math.floor(Math.random() * allProducts.length);
+  //Loop to make sure that the new image selected is not the same as previous image
+  while (allProducts[leftImgIndex].name === event.target.name){ //can add more conditions to this while loop so that it doesn't come up with the same image as the other two either
+    console.log(allProducts[leftImgIndex].name);
+    leftImgIndex = Math.floor(Math.random() * allProducts.length);
+  }
+
+  console.log(allProducts[leftImgIndex].name);
   leftImageOnThisPage = allProducts[leftImgIndex];
   leftImg.src = leftImageOnThisPage.filePath;
   leftImg.name = leftImageOnThisPage.name;
