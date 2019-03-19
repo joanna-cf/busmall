@@ -18,9 +18,6 @@ Listen for event ('click')
  
 */
 
-//Create an object for all the objects we have so can refer
-//Array: function to iterate through.
-
 //--------- Global variables --------
 var clicks = 0;
 var allProducts = [];
@@ -85,6 +82,16 @@ function renderImages(){
   }
 }
 
+//--------- Add list to page ----------
+
+function renderList (){
+  for (var m in allProducts){
+    var listItem = document.createElement('li');
+    listItem.textContent = allProducts[m].timesClicked + ' votes for ' + allProducts[m].description;
+    productList.appendChild(listItem);
+  }
+}
+
 //--------- Instantiate new objects --------
 new Product('bag', 'img/bag.jpg', 'R2D2 bag');
 new Product('banana', 'img/banana.jpg', 'Banana slicer');
@@ -92,6 +99,21 @@ new Product('bathroom', 'img/bathroom.jpg', 'Bathroom iPad stand');
 new Product('boots', 'img/boots.jpg', 'Open-toed boots');
 new Product('breakfast', 'img/breakfast.jpg', 'Breakfast maker');
 new Product('bubblegum', 'img/bubblegum.jpg', 'Meatball bubblegum');
+new Product('chair', 'img/chair.jpg', 'Red elevated chair');
+new Product('cthulhu', 'img/cthulhu.jpg', 'Cthulhu figure');
+new Product('dog-duck', 'img/dog-duck.jpg', 'Duck beak for dogs');
+new Product('dragon', 'img/dragon.jpg', 'Dragon Meat');
+new Product('pen', 'img/pen.jpg', 'Pen utensils');
+new Product('pet-sweep', 'img/pet-sweep.jpg', 'Sweeper feet for pets');
+new Product('scissors', 'img/scissors.jpg', 'Pizza scissors');
+new Product('shark', 'img/shark.jpg', 'Shark sleeping bag');
+new Product('sweep', 'img/sweep.jpg', 'Sweeper suit for babies');
+new Product('tauntaun', 'img/tauntaun.jpg', 'Tauntaun sleeping bag');
+new Product('unicorn', 'img/unicorn.jpg', 'Unicorn meat');
+new Product('usb', 'img/usb.jpg', 'USB tentacle');
+new Product('water-can', 'img/water-can.jpg', 'Surreal watering can');
+new Product('wine-glass', 'img/wine-glass.jpg', 'Unusual wine glass');
+
 
 //--------- Event Handler --------
 
@@ -109,191 +131,12 @@ function handleClick(event){
     }
   }
   // debugger;
-  if (clicks > 5){
+  if (clicks > 24){
     productList.removeEventListener('click', handleClick);
-    // renderList();
+    renderList();
   }
 
   renderImages();
 }
 
 imageDisplay.addEventListener('click', handleClick);
-
-
-//-------- Call Function ---------
-// generateRandomIndex();
-// generateNewImages();
-// renderImages();
-
-
-//--------- Add list to page ----------
-
-// function renderList (){
-//   for (var m in allProducts){
-//     var listItem = document.createElement('li');
-//     listItem.textContent = allProducts[m].timesClicked + ' votes for ' + allProducts[m].description;
-//     productList.appendChild(listItem);
-//   }
-// }
-
-// // //--------- Event Listener --------
-
-
-// function handleClick(event){
-//   //logs number of clicks
-//   clicks++;
-//   console.log('clicks no: ' + clicks);
-//   console.log(event.target);
-
-//   //Iterates through all Products and adds timesClicked if it matches
-//   for (var k = 0; k < allProducts.length; k++){
-//     if (event.target.name === allProducts[k].name){
-//       allProducts[k].timesClicked++;
-//     }
-//   }
-
-//   //Set up temporary variables to store newly picked images
-//   var tempLeft;
-//   var tempCenter;
-
-//   for (var i = 0; i < imgOnPage.length; i++){
-
-//     //Selects next random image
-//     var imgIndex = Math.floor(Math.random() * allProducts.length);
-//     //Loop to make sure that the new image selected is not the same as previous image
-//     // TODO: check against all previous images
-//     while (allProducts[imgIndex].name === previousLeftImage.name || allProducts[imgIndex].name === previousCenterImage.name || tempLeft === allProducts[imgIndex] || tempCenter === allProducts[imgIndex]){ //can add more conditions to this while loop so that it doesn't come up with the same image as the other two either
-//       console.log(allProducts[imgIndex].name);
-//       imgIndex = Math.floor(Math.random() * allProducts.length);
-//     }
-
-//     console.log(allProducts[imgIndex].name);
-//     currentImg = allProducts[imgIndex];
-//     imgOnPage[i].src = currentImg.filePath;
-//     imgOnPage[i].name = currentImg.name;
-
-//     //Logs number of times this image appears
-//     currentImg.timesShown++;
-//     // console.log(leftImageOnThisPage);
-
-
-//     //TODO: refactor
-//     if(i === 0){
-//       tempLeft = currentImg;
-//     }
-
-//     if(i === 1){
-//       tempCenter = currentImg;
-//     }
-
-//     if (clicks > 9){
-//       imgOnPage[i].removeEventListener('click', handleClick);
-//       renderList();
-//     }
-//   }
-
-//   previousLeftImage = tempLeft;
-//   previousCenterImage = tempCenter;
-// }
-
-// leftImg.addEventListener('click', handleClick);
-// centerImg.addEventListener('click', handleClick);
-// // rightImg.addEventListener('click', handleClick);
-
-
-//After declare products, set up which is on the page
-// previousLeftImage = allProducts[0];
-// previousCenterImage = allProducts[1];
-
-//---------- CODE DEMO
-
-// var ctx = document.getElementById('myChart').getContext('2d');
-// var myChart = new Chart(ctx, {
-//   type: 'bar',
-//   data: {
-//     labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-//     datasets: [{
-//       label: '# of Votes',
-//       data: [12, 19, 3, 5, 2, 3],
-//       backgroundColor: [
-//         'rgba(255, 99, 132, 0.2)',
-//         'rgba(54, 162, 235, 0.2)',
-//         'rgba(255, 206, 86, 0.2)',
-//         'rgba(75, 192, 192, 0.2)',
-//         'rgba(153, 102, 255, 0.2)',
-//         'rgba(255, 159, 64, 0.2)'
-//       ],
-//       borderColor: [
-//         'rgba(255, 99, 132, 1)',
-//         'rgba(54, 162, 235, 1)',
-//         'rgba(255, 206, 86, 1)',
-//         'rgba(75, 192, 192, 1)',
-//         'rgba(153, 102, 255, 1)',
-//         'rgba(255, 159, 64, 1)'
-//       ],
-//       borderWidth: 1
-//     }]
-//   },
-//   options: {
-//     scales: {
-//       yAxes: [{
-//         ticks: {
-//           beginAtZero: true
-//         }
-//       }]
-//     }
-//   }
-// });
-
-
-
-
-//CODE I DID THAT WORKED BUT WAS TOO COMPLICATED SO I NEED TO WORK ON OTHER THINGS FIRST
-
-// var leftImg = document.getElementById('img-left');
-// var centerImg = document.getElementById('img-center');
-// var rightImg = document.getElementById('img-right');
-
-// var imgOnPage = [leftImg, centerImg, rightImg];
-// var currentImg;
-// // var productSelected = [];
-
-// function handleClick (event){
-//   clicks++;
-//   // currentImg.timesClicked++;
-//   console.log('user has had ' + clicks + ' clicks.');
-//   // console.log(currentImg);
-//   // console.log('left image clicked');
-
-//   for (var i = 0; i < imgOnPage.length; i++){
-//     var imgIndex = Math.floor(Math.random() * allProducts.length);
-//     currentImg = allProducts[imgIndex];
-//     imgOnPage[i].src = currentImg.filePath;
-//     currentImg.timesShown++;
-//     console.log(currentImg);
-
-//     if (clicks > 24){
-//       imgOnPage[i].removeEventListener('click', handleClick);
-//     }
-//   }
-
-//   // //selects random images
-//   // var imgIndex = Math.floor(Math.random() * allProducts.length);
-//   // var centerImgIndex = Math.floor(Math.random() * allProducts.length);
-//   // var rightImgIndex = Math.floor(Math.random() * allProducts.length);
-
-//   // //changes left image to new display image
-//   // leftImageOnThisPage = allProducts[leftImgIndex];
-//   // centerImageOnThisPage = allProducts[centerImgIndex];
-//   // rightImageOnThisPage = allProducts[rightImgIndex];
-
-//   // leftImg.src = leftImageOnThisPage.filePath;
-//   // centerImg.src = centerImageOnThisPage.filePath;
-//   // rightImg.src = rightImageOnThisPage.filePath;
-
-//   // if (clicks > 24){
-//   //   leftImg.removeEventListener('click', handleClick);
-//   //   leftImg.removeEventListener('click', handleClick);
-//   //   leftImg.removeEventListener('click', handleClick);
-//   // }
-// }
