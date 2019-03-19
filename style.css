@@ -12,7 +12,7 @@ main img {
   border: 2px dotted black;
 }
 
-section {
-  height: 20%;
-  padding: 
+#chart-section {
+  width: 70%;
+  margin: auto;
 }

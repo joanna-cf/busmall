@@ -114,6 +114,46 @@ new Product('usb', 'img/usb.jpg', 'USB tentacle');
 new Product('water-can', 'img/water-can.jpg', 'Surreal watering can');
 new Product('wine-glass', 'img/wine-glass.jpg', 'Unusual wine glass');
 
+//------- Adding a chart ---------
+
+function makeChart(){
+  var productNamesArray = [];
+  var productVotesArray = [];
+
+  for(var i = 0; i < allProducts.length; i++){
+    var singleProductName = allProducts[i].description;
+    productNamesArray.push(singleProductName);
+  }
+
+  for(var j = 0; j < allProducts.length; j++){
+    var singleVote = allProducts[j].timesClicked;
+    productVotesArray.push(singleVote);
+  }
+
+  var ctx = document.getElementById('busmallChart').getContext('2d');
+  var busmallChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: productNamesArray,
+      datasets: [{
+        label: '# of Votes',
+        data: productVotesArray,
+        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+        borderColor: 'rgba(255, 99, 132, 1)',
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      }
+    }
+  });
+}
 
 //--------- Event Handler --------
 
@@ -130,13 +170,18 @@ function handleClick(event){
       break;
     }
   }
-  // debugger;
-  if (clicks > 24){
+
+  if (clicks > 9){
     productList.removeEventListener('click', handleClick);
     renderList();
+    makeChart();
   }
-
   renderImages();
 }
 
 imageDisplay.addEventListener('click', handleClick);
+
+
+
+
+
