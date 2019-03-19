@@ -38,6 +38,17 @@ var Product = function(name, filePath, description){
   allProducts.push(this);
 };
 
+//--------- Add list to page ----------
+var productList = document.getElementById('product-list');
+
+function renderList (){
+  for (var m in allProducts){
+    var listItem = document.createElement('li');
+    listItem.textContent = allProducts[m].timesClicked + ' votes for ' + allProducts[m].description;
+    productList.appendChild(listItem);
+  }
+}
+
 //--------- Event Listener --------
 
 var leftImg = document.getElementById('img-left');
@@ -82,10 +93,11 @@ function handleClick(event){
 
   //Logs number of times this image appears
   leftImageOnThisPage.timesShown++;
-  console.log(leftImageOnThisPage);
+  // console.log(leftImageOnThisPage);
 
   if (clicks > 9){
     leftImg.removeEventListener('click', handleClick);
+    renderList();
   }
 }
 
@@ -101,6 +113,7 @@ new Product('boots', 'img/boots.jpg', 'Open-toed boots');
 new Product('breakfast', 'img/breakfast.jpg', 'Breakfast maker');
 new Product('bubblegum', 'img/bubblegum.jpg', 'Meatball bubblegum');
 
+// renderList();
 // console.log(allProducts);
 
 
