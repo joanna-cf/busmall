@@ -25,7 +25,7 @@ Listen for event ('click')
 var clicks = 0;
 var allProducts = [];
 var leftImageOnThisPage;
-// var centerImageOnThisPage;
+var centerImageOnThisPage;
 // var rightImageOnThisPage;
 
 //--------- Constructor function --------
@@ -52,6 +52,11 @@ function renderList (){
 //--------- Event Listener --------
 
 var leftImg = document.getElementById('img-left');
+var centerImg = document.getElementById('img-center');
+// var rightImg = document.getElementbyId('img-right');
+
+var imgOnPage = [leftImg, centerImg];
+var currentImg;
 
 function handleClick(event){
   //logs number of clicks
@@ -66,43 +71,34 @@ function handleClick(event){
     }
   }
 
-  // for (var i = 0; i < imgOnPage.length; i++){
-  //   var imgIndex = Math.floor(Math.random() * allProducts.length);
-  //   currentImg = allProducts[imgIndex];
-  //   imgOnPage[i].src = currentImg.filePath;
-  //   currentImg.timesShown++;
-  //   console.log(currentImg);
+  for (var i = 0; i < imgOnPage.length; i++){
 
-  //   if (clicks > 24){
-  //     imgOnPage[i].removeEventListener('click', handleClick);
-  //   }
-  // }
+    //Selects next random image
+    var imgIndex = Math.floor(Math.random() * allProducts.length);
+    //Loop to make sure that the new image selected is not the same as previous image
+    while (allProducts[imgIndex].name === event.target.name){ //can add more conditions to this while loop so that it doesn't come up with the same image as the other two either
+      console.log(allProducts[imgIndex].name);
+      imgIndex = Math.floor(Math.random() * allProducts.length);
+    }
 
-  //Selects next random image
-  var leftImgIndex = Math.floor(Math.random() * allProducts.length);
-  //Loop to make sure that the new image selected is not the same as previous image
-  while (allProducts[leftImgIndex].name === event.target.name){ //can add more conditions to this while loop so that it doesn't come up with the same image as the other two either
-    console.log(allProducts[leftImgIndex].name);
-    leftImgIndex = Math.floor(Math.random() * allProducts.length);
-  }
+    console.log(allProducts[imgIndex].name);
+    currentImg = allProducts[imgIndex];
+    imgOnPage[i].src = currentImg.filePath;
+    imgOnPage[i].name = currentImg.name;
 
-  console.log(allProducts[leftImgIndex].name);
-  leftImageOnThisPage = allProducts[leftImgIndex];
-  leftImg.src = leftImageOnThisPage.filePath;
-  leftImg.name = leftImageOnThisPage.name;
+    //Logs number of times this image appears
+    currentImg.timesShown++;
+    // console.log(leftImageOnThisPage);
 
-  //Logs number of times this image appears
-  leftImageOnThisPage.timesShown++;
-  // console.log(leftImageOnThisPage);
-
-  if (clicks > 9){
-    leftImg.removeEventListener('click', handleClick);
-    renderList();
+    if (clicks > 9){
+      imgOnPage[i].removeEventListener('click', handleClick);
+      renderList();
+    }
   }
 }
 
 leftImg.addEventListener('click', handleClick);
-// centerImg.addEventListener('click', handleClick);
+centerImg.addEventListener('click', handleClick);
 // rightImg.addEventListener('click', handleClick);
 
 //--------- Instantiate new objects --------
@@ -112,10 +108,6 @@ new Product('bathroom', 'img/bathroom.jpg', 'Bathroom iPad stand');
 new Product('boots', 'img/boots.jpg', 'Open-toed boots');
 new Product('breakfast', 'img/breakfast.jpg', 'Breakfast maker');
 new Product('bubblegum', 'img/bubblegum.jpg', 'Meatball bubblegum');
-
-// renderList();
-// console.log(allProducts);
-
 
 
 
@@ -149,7 +141,7 @@ new Product('bubblegum', 'img/bubblegum.jpg', 'Meatball bubblegum');
 //   }
 
 //   // //selects random images
-//   // var leftImgIndex = Math.floor(Math.random() * allProducts.length);
+//   // var imgIndex = Math.floor(Math.random() * allProducts.length);
 //   // var centerImgIndex = Math.floor(Math.random() * allProducts.length);
 //   // var rightImgIndex = Math.floor(Math.random() * allProducts.length);
 
@@ -168,3 +160,4 @@ new Product('bubblegum', 'img/bubblegum.jpg', 'Meatball bubblegum');
 //   //   leftImg.removeEventListener('click', handleClick);
 //   // }
 // }
+
