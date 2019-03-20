@@ -31,6 +31,7 @@ var leftBox = document.getElementById('left-image');
 var centerBox = document.getElementById('center-image');
 var rightBox = document.getElementById('right-image');
 var productList = document.getElementById('product-list');
+var resultsHeading = document.getElementById('results-heading');
 
 imageBoxes.push(leftBox, centerBox, rightBox);
 
@@ -83,8 +84,19 @@ function storeProducts(){
   console.log('Products stored in local storage');
 }
 
+// Adds list heading to page
+function renderHeading(){
+  var heading = document.createElement('h2');
+  heading.textContent = 'Results of Surveys';
+  resultsHeading.appendChild(heading);
+}
+
 // Adds list to page
 function renderList (){
+  var listHeading = document.createElement('h3');
+  listHeading.textContent = 'Total Votes';
+  productList.appendChild(listHeading);
+
   for (var m in allProducts){
     var listItem = document.createElement('li');
     listItem.textContent = allProducts[m].timesClicked + ' votes for ' + allProducts[m].description;
@@ -150,6 +162,7 @@ function handleClick(event){
 
   if (clicks > 2){
     imageDisplay.removeEventListener('click', handleClick);
+    renderHeading();
     renderList();
     makeChart();
     storeProducts();
