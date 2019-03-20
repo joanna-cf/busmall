@@ -110,26 +110,24 @@ new Product('shark', 'img/shark.jpg', 'Shark sleeping bag');
 new Product('sweep', 'img/sweep.jpg', 'Sweeper suit for babies');
 new Product('tauntaun', 'img/tauntaun.jpg', 'Tauntaun sleeping bag');
 new Product('unicorn', 'img/unicorn.jpg', 'Unicorn meat');
-new Product('usb', 'img/usb.jpg', 'USB tentacle');
+new Product('usb', 'img/usb.gif', 'USB tentacle');
 new Product('water-can', 'img/water-can.jpg', 'Surreal watering can');
 new Product('wine-glass', 'img/wine-glass.jpg', 'Unusual wine glass');
 
 //------- Adding a chart ---------
+//TODO: add bars to chart with total times displayed, and also percentage time clicked when displayed (two more bars? Bar and line? pie chart of most popular product?)
 
 function makeChart(){
   var productNamesArray = [];
   var productVotesArray = [];
 
   for(var i = 0; i < allProducts.length; i++){
-    var singleProductName = allProducts[i].description;
-    productNamesArray.push(singleProductName);
+    productNamesArray.push(allProducts[i].description);
+    productVotesArray.push(allProducts[i].timesClicked);
+    //TODO: all percentage or proportion here
   }
 
-  for(var j = 0; j < allProducts.length; j++){
-    var singleVote = allProducts[j].timesClicked;
-    productVotesArray.push(singleVote);
-  }
-
+  //Note that busmallChart is now a variable that you could change each time
   var ctx = document.getElementById('busmallChart').getContext('2d');
   var busmallChart = new Chart(ctx, {
     type: 'bar',
@@ -186,8 +184,3 @@ function handleClick(event){
 }
 
 imageDisplay.addEventListener('click', handleClick);
-
-
-
-
-

@@ -17,15 +17,29 @@ aside {
 }
 
 #display-images {
-  /* border: 2px dotted red; */
+  border: 2px dotted red;
   float: left;
+  margin: auto;
+  width: 960px;
+}
+
+#display-images ul {
+  border: 2px dotted orange;
+  height: 360px;
   margin: auto;
 }
 
-#display-images div {
+#display-images ul li {
   float: left;
-  margin: 20px;
+  margin: 30px;
+  width: 25%;
+  background-color: yellow;
+  border: 3px solid blue;
+}
+
+#display-images img {
   width: 200px;
+  margin: auto;
 }
 
 #chart-section {
