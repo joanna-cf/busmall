@@ -12,6 +12,22 @@ main img {
   border: 2px dotted black;
 }
 
+aside {
+  float: left;
+}
+
+#display-images {
+  border: 2px dotted red;
+  float: left;
+  margin: auto;
+}
+
+#display-images div {
+  float: left;
+  margin: 20px;
+  width: 200px;
+}
+
 #chart-section {
   width: 70%;
   margin: auto;

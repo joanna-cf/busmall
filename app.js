@@ -29,11 +29,11 @@ var imgIndex;
 var currentImg;
 
 // DOM References (looks like html)
-var productList = document.getElementById('product-list');
 var imageDisplay = document.getElementById('display-images');
 var leftBox = document.getElementById('left-image');
 var centerBox = document.getElementById('center-image');
 var rightBox = document.getElementById('right-image');
+var productList = document.getElementById('product-list');
 
 imageBoxes.push(leftBox, centerBox, rightBox);
 
@@ -144,10 +144,15 @@ function makeChart(){
       }]
     },
     options: {
+      title: {
+        display: true,
+        text: 'Votes per product'
+      },
       scales: {
         yAxes: [{
           ticks: {
-            beginAtZero: true
+            beginAtZero: true,
+            precision: 0
           }
         }]
       }
@@ -171,8 +176,9 @@ function handleClick(event){
     }
   }
 
-  if (clicks > 9){
-    productList.removeEventListener('click', handleClick);
+  if (clicks > 24){
+    // debugger;
+    imageDisplay.removeEventListener('click', handleClick);
     renderList();
     makeChart();
   }
