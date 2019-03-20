@@ -29,11 +29,11 @@ var imgIndex;
 var currentImg;
 
 // DOM References (looks like html)
-var productList = document.getElementById('product-list');
 var imageDisplay = document.getElementById('display-images');
 var leftBox = document.getElementById('left-image');
 var centerBox = document.getElementById('center-image');
 var rightBox = document.getElementById('right-image');
+var productList = document.getElementById('product-list');
 
 imageBoxes.push(leftBox, centerBox, rightBox);
 
@@ -110,10 +110,53 @@ new Product('shark', 'img/shark.jpg', 'Shark sleeping bag');
 new Product('sweep', 'img/sweep.jpg', 'Sweeper suit for babies');
 new Product('tauntaun', 'img/tauntaun.jpg', 'Tauntaun sleeping bag');
 new Product('unicorn', 'img/unicorn.jpg', 'Unicorn meat');
-new Product('usb', 'img/usb.jpg', 'USB tentacle');
+new Product('usb', 'img/usb.gif', 'USB tentacle');
 new Product('water-can', 'img/water-can.jpg', 'Surreal watering can');
 new Product('wine-glass', 'img/wine-glass.jpg', 'Unusual wine glass');
 
+//------- Adding a chart ---------
+//TODO: add bars to chart with total times displayed, and also percentage time clicked when displayed (two more bars? Bar and line? pie chart of most popular product?)
+
+function makeChart(){
+  var productNamesArray = [];
+  var productVotesArray = [];
+
+  for(var i = 0; i < allProducts.length; i++){
+    productNamesArray.push(allProducts[i].description);
+    productVotesArray.push(allProducts[i].timesClicked);
+    //TODO: all percentage or proportion here
+  }
+
+  //Note that busmallChart is now a variable that you could change each time
+  var ctx = document.getElementById('busmallChart').getContext('2d');
+  var busmallChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: productNamesArray,
+      datasets: [{
+        label: '# of Votes',
+        data: productVotesArray,
+        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+        borderColor: 'rgba(255, 99, 132, 1)',
+        borderWidth: 1
+      }]
+    },
+    options: {
+      title: {
+        display: true,
+        text: 'Votes per product'
+      },
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true,
+            precision: 0
+          }
+        }]
+      }
+    }
+  });
+}
 
 //--------- Event Handler --------
 
@@ -130,12 +173,13 @@ function handleClick(event){
       break;
     }
   }
-  // debugger;
-  if (clicks > 24){
-    productList.removeEventListener('click', handleClick);
-    renderList();
-  }
 
+  if (clicks > 24){
+    // debugger;
+    imageDisplay.removeEventListener('click', handleClick);
+    renderList();
+    makeChart();
+  }
   renderImages();
 }
 
