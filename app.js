@@ -2,11 +2,9 @@
 
 /*
 PLANNING
-
 Store images
   Constructor function
   Array of image objects
-
 Listen for event ('click')
   Less than 25 clicks/selections
   Randomly generate 3 images
@@ -15,7 +13,6 @@ Listen for event ('click')
     Display new images
   Increment amount of clicks
     Store index of last image
- 
 */
 
 //--------- Global variables --------
@@ -28,7 +25,7 @@ var imageBoxes = [];
 var imgIndex;
 var currentImg;
 
-// DOM References (looks like html)
+// -------- DOM References --------
 var imageDisplay = document.getElementById('display-images');
 var leftBox = document.getElementById('left-image');
 var centerBox = document.getElementById('center-image');
@@ -59,19 +56,16 @@ function generateNewImages(){
   productsToDisplay = [];
   generateRandomIndex();
   for (var i = 0; i < numberOfProducts; i++){
-    // generateRandomIndex();
     while (productsOnPage.includes(allProducts[imgIndex]) || productsToDisplay.includes(allProducts[imgIndex])){
       generateRandomIndex();
     }
     currentImg = allProducts[imgIndex];
     productsToDisplay.push(currentImg);
-    // console.log(productsToDisplay);
   }
 }
 
-// Render image
+// Renders image to page
 function renderImages(){
-  // debugger;
   generateNewImages();
   productsOnPage = [];
   for (var j = 0; j < numberOfProducts; j++){
@@ -89,8 +83,7 @@ function storeProducts(){
   console.log('Products stored in local storage');
 }
 
-//--------- Add list to page ----------
-
+// Adds list to page
 function renderList (){
   for (var m in allProducts){
     var listItem = document.createElement('li');
@@ -99,31 +92,7 @@ function renderList (){
   }
 }
 
-// //--------- Instantiate new objects --------
-// new Product('bag', 'img/bag.jpg', 'R2D2 bag');
-// new Product('banana', 'img/banana.jpg', 'Banana slicer');
-// new Product('bathroom', 'img/bathroom.jpg', 'Bathroom iPad stand');
-// new Product('boots', 'img/boots.jpg', 'Open-toed boots');
-// new Product('breakfast', 'img/breakfast.jpg', 'Breakfast maker');
-// new Product('bubblegum', 'img/bubblegum.jpg', 'Meatball bubblegum');
-// new Product('chair', 'img/chair.jpg', 'Red elevated chair');
-// new Product('cthulhu', 'img/cthulhu.jpg', 'Cthulhu figure');
-// new Product('dog-duck', 'img/dog-duck.jpg', 'Duck beak for dogs');
-// new Product('dragon', 'img/dragon.jpg', 'Dragon Meat');
-// new Product('pen', 'img/pen.jpg', 'Pen utensils');
-// new Product('pet-sweep', 'img/pet-sweep.jpg', 'Sweeper feet for pets');
-// new Product('scissors', 'img/scissors.jpg', 'Pizza scissors');
-// new Product('shark', 'img/shark.jpg', 'Shark sleeping bag');
-// new Product('sweep', 'img/sweep.jpg', 'Sweeper suit for babies');
-// new Product('tauntaun', 'img/tauntaun.jpg', 'Tauntaun sleeping bag');
-// new Product('unicorn', 'img/unicorn.jpg', 'Unicorn meat');
-// new Product('usb', 'img/usb.gif', 'USB tentacle');
-// new Product('water-can', 'img/water-can.jpg', 'Surreal watering can');
-// new Product('wine-glass', 'img/wine-glass.jpg', 'Unusual wine glass');
-
-//------- Adding a chart ---------
-//TODO: add bars to chart with total times displayed, and also percentage time clicked when displayed (two more bars? Bar and line? pie chart of most popular product?)
-
+// Adds a chart to the page
 function makeChart(){
   var productNamesArray = [];
   var productVotesArray = [];
@@ -131,10 +100,8 @@ function makeChart(){
   for(var i = 0; i < allProducts.length; i++){
     productNamesArray.push(allProducts[i].description);
     productVotesArray.push(allProducts[i].timesClicked);
-    //TODO: all percentage or proportion here
   }
 
-  //Note that busmallChart is now a variable that you could change each time
   var ctx = document.getElementById('busmallChart').getContext('2d');
   var busmallChart = new Chart(ctx, {
     type: 'bar',
@@ -143,8 +110,8 @@ function makeChart(){
       datasets: [{
         label: '# of Votes',
         data: productVotesArray,
-        backgroundColor: 'rgba(255, 99, 132, 0.2)',
-        borderColor: 'rgba(255, 99, 132, 1)',
+        backgroundColor: 'rgba(58,109,148,0.2)',
+        borderColor: 'rgba(23,55,97,1)',
         borderWidth: 1
       }]
     },
@@ -181,7 +148,7 @@ function handleClick(event){
     }
   }
 
-  if (clicks > 4){
+  if (clicks > 2){
     imageDisplay.removeEventListener('click', handleClick);
     renderList();
     makeChart();
@@ -192,9 +159,7 @@ function handleClick(event){
 
 imageDisplay.addEventListener('click', handleClick);
 
-//Give your BusMall app some persistence by using local storage to store your voting data! The goal is to have all of your click data persist through a page refresh or through completely closing the browser.
-
-// debugger;
+// Runs first on page to determine whether displaying new images or already images from local storage
 if(localStorage.getItem('stringProductsArray') === null){
   new Product('bag', 'img/bag.jpg', 'R2D2 bag');
   new Product('banana', 'img/banana.jpg', 'Banana slicer');
@@ -226,6 +191,3 @@ if(localStorage.getItem('stringProductsArray') === null){
   renderImages();
   console.log('Images from local storage added to page');
 }
-
-//First thing to run to put images on screen
-// renderImages();
