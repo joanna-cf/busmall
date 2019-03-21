@@ -160,7 +160,7 @@ function handleClick(event){
     }
   }
 
-  if (clicks > 2){
+  if (clicks > 24){
     imageDisplay.removeEventListener('click', handleClick);
     renderHeading();
     renderList();
