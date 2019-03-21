@@ -31,6 +31,7 @@ header {
 
 h1 {
   margin-top: 2%;
+  margin-bottom: 2%;
 }
 
 main {
@@ -48,13 +49,13 @@ main {
 }
 
 #display-images p {
-  margin-bottom: 2%;
+  margin-bottom: 6%;
   font-size: 1.1em;
 }
 
 #display-images ul {
-  border: 2px dotted orange;
-  height: 30%;
+  /* border: 2px dotted orange; */
+  height: 100%;
   margin: auto;
 }
 
@@ -62,8 +63,8 @@ main {
   float: left;
   margin-left: 6%;
   width: 26%;
-  background-color: yellow;
-  border: 3px solid blue;
+  /* background-color: yellow; */
+  /* border: 3px solid blue; */
 }
 
 #display-images img {
@@ -75,7 +76,7 @@ main {
   font-size: 1.5em;
   text-decoration: underline;
   text-align: center;
-  margin-top: 5%;
+  margin-top: 8%;
   margin-bottom: 5%;
 }
 
