@@ -108,10 +108,14 @@ function renderList (){
 function makeChart(){
   var productNamesArray = [];
   var productVotesArray = [];
+  var productPercentageArray = [];
+  var productShownArray = [];
 
   for(var i = 0; i < allProducts.length; i++){
     productNamesArray.push(allProducts[i].description);
     productVotesArray.push(allProducts[i].timesClicked);
+    productPercentageArray.push(100 * allProducts[i].timesClicked / allProducts[i].timesShown);
+    productShownArray.push(allProducts[i].timesShown);
   }
 
   var ctx = document.getElementById('busmallChart').getContext('2d');
@@ -120,10 +124,17 @@ function makeChart(){
     data: {
       labels: productNamesArray,
       datasets: [{
-        label: '# of Votes',
+        label: 'Number of Votes',
         data: productVotesArray,
         backgroundColor: 'rgba(58,109,148,0.2)',
         borderColor: 'rgba(23,55,97,1)',
+        borderWidth: 1
+      }, {
+        
+        label: 'Number of Times Shown',
+        data: productShownArray,
+        backgroundColor: 'rgba(152,11,13,0.2)',
+        borderColor: 'rgba(152,11,13,1)',
         borderWidth: 1
       }]
     },
@@ -131,6 +142,34 @@ function makeChart(){
       title: {
         display: true,
         text: 'Votes per product'
+      },
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true,
+            precision: 0
+          }
+        }]
+      }
+    }
+  });
+  var ctx = document.getElementById('busmallPieChart').getContext('2d');
+  var busmallPieChart = new Chart(ctx, {
+    type: 'pie',
+    data: {
+      labels: productNamesArray,
+      datasets: [{
+        label: 'Percentage Voted When Shown',
+        data: productPercentageArray,
+        // backgroundColor: 'rgba(58,109,148,0.2)',
+        // borderColor: 'rgba(23,55,97,1)',
+        // borderWidth: 1
+      }]
+    },
+    options: {
+      title: {
+        display: true,
+        text: 'Percentage per product'
       },
       scales: {
         yAxes: [{

@@ -16,6 +16,13 @@ font-family: 'Open Sans', sans-serif;
   color: #173761;
 }
 
+/* Cite: https://css-tricks.com/perfect-full-page-background-image/ */
+/* body {
+  background: url(img/1busbackground.jpg) no-repeat center center fixed;
+  background-size: cover;
+} */
+
+
 header {
   width: 70%;
   margin: auto;
@@ -36,8 +43,10 @@ h1 {
 
 main {
   width: 70%;
+  height: 100%;
   margin: auto;
   font-family: 'Open Sans', sans-serif;
+  background-color: white;
 }
 
 #display-images {
@@ -82,9 +91,12 @@ main {
 
 aside {
   float: left;
-  background-color: #537B9E80;
   padding: 3%;
   width: 33%
+}
+
+aside ul {
+  background-color: #537B9E80;
 }
 
 aside h3 {
@@ -99,7 +111,13 @@ aside li {
   margin-top: 3%;
 }
 
-#chart-section {
+#bar-section {
+  width: 66%;
+  float: right;
+  margin: auto;
+}
+
+#pie-section {
   width: 66%;
   float: right;
   margin: auto;
