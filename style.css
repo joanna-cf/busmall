@@ -1,27 +1,9 @@
-/* Colors
-#173761
-#3A6D94
-#537B9E
-#ADB5BD
-#FFFFFF
-
-font-family: 'Amaranth', sans-serif;
-font-family: 'Open Sans', sans-serif;
-*/
-
 @import url('https://fonts.googleapis.com/css?family=Amaranth|Open+Sans');
 
 * {
   box-sizing: border-box;
   color: #173761;
 }
-
-/* Cite: https://css-tricks.com/perfect-full-page-background-image/ */
-/* body {
-  background: url(img/1busbackground.jpg) no-repeat center center fixed;
-  background-size: cover;
-} */
-
 
 header {
   width: 70%;

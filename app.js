@@ -22,18 +22,20 @@ var numberOfProducts = 3;
 var productsOnPage = [];
 var productsToDisplay = [];
 var imageBoxes = [];
+var imageCaptions = [];
 var imgIndex;
 var currentImg;
 
 // -------- DOM References --------
 var imageDisplay = document.getElementById('display-images');
-var leftBox = document.getElementById('left-image');
-var centerBox = document.getElementById('center-image');
-var rightBox = document.getElementById('right-image');
+var box1 = document.getElementById('image1');
+var box2 = document.getElementById('image2');
+var box3 = document.getElementById('image3');
+var caption1 = document.getElementById('caption1');
+var caption2 = document.getElementById('caption2');
+var caption3 = document.getElementById('caption3');
 var productList = document.getElementById('product-list');
 var resultsHeading = document.getElementById('results-heading');
-
-imageBoxes.push(leftBox, centerBox, rightBox);
 
 //--------- Constructor function --------
 var Product = function(name, filePath, description){
@@ -46,6 +48,10 @@ var Product = function(name, filePath, description){
 };
 
 //-------- Functions ---------
+
+// Pushes DOM references to arrays
+imageBoxes.push(box1, box2, box3);
+imageCaptions.push(caption1, caption2, caption3);
 
 // Random number function
 function generateRandomIndex(){
@@ -65,12 +71,13 @@ function generateNewImages(){
   }
 }
 
-// Renders image to page
+// Renders image and captions to page
 function renderImages(){
   generateNewImages();
   productsOnPage = [];
   for (var j = 0; j < numberOfProducts; j++){
     imageBoxes[j].src = productsToDisplay[j].filePath;
+    imageCaptions[j].textContent = productsToDisplay[j].description;
     imageBoxes[j].name = productsToDisplay[j].name;
     productsToDisplay[j].timesShown++;
     productsOnPage.push(productsToDisplay[j]);
@@ -104,7 +111,7 @@ function renderList (){
   }
 }
 
-// Adds a chart to the page
+// Adds a bar and line chart and a pie chart to the page
 function makeChart(){
   var productNamesArray = [];
   var productVotesArray = [];
@@ -134,7 +141,6 @@ function makeChart(){
         label: 'Number of Times Shown',
         data: productShownArray,
         backgroundColor: 'rgba(54, 162, 235, 0.2)',
-        // borderColor: 'rgba(152,11,13,1)',
         borderWidth: 1,
         type: 'line'
       }]
@@ -232,7 +238,9 @@ function handleClick(event){
 
 imageDisplay.addEventListener('click', handleClick);
 
-// Runs first on page to determine whether displaying new images or already images from local storage
+// ---------- Runs First ---------
+
+// Determines whether displaying new images or already images from local storage
 if(localStorage.getItem('stringProductsArray') === null){
   new Product('bag', 'img/bag.jpg', 'R2D2 bag');
   new Product('banana', 'img/banana.jpg', 'Banana slicer');
