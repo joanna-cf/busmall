@@ -22,18 +22,20 @@ var numberOfProducts = 3;
 var productsOnPage = [];
 var productsToDisplay = [];
 var imageBoxes = [];
+var imageCaptions = [];
 var imgIndex;
 var currentImg;
 
 // -------- DOM References --------
 var imageDisplay = document.getElementById('display-images');
-var leftBox = document.getElementById('left-image');
-var centerBox = document.getElementById('center-image');
-var rightBox = document.getElementById('right-image');
+var box1 = document.getElementById('image1');
+var box2 = document.getElementById('image2');
+var box3 = document.getElementById('image3');
+var caption1 = document.getElementById('caption1');
+var caption2 = document.getElementById('caption2');
+var caption3 = document.getElementById('caption3');
 var productList = document.getElementById('product-list');
 var resultsHeading = document.getElementById('results-heading');
-
-imageBoxes.push(leftBox, centerBox, rightBox);
 
 //--------- Constructor function --------
 var Product = function(name, filePath, description){
@@ -46,6 +48,10 @@ var Product = function(name, filePath, description){
 };
 
 //-------- Functions ---------
+
+// Pushes DOM references to arrays
+imageBoxes.push(box1, box2, box3);
+imageCaptions.push(caption1, caption2, caption3);
 
 // Random number function
 function generateRandomIndex(){
@@ -65,12 +71,13 @@ function generateNewImages(){
   }
 }
 
-// Renders image to page
+// Renders image and captions to page
 function renderImages(){
   generateNewImages();
   productsOnPage = [];
   for (var j = 0; j < numberOfProducts; j++){
     imageBoxes[j].src = productsToDisplay[j].filePath;
+    imageCaptions[j].textContent = productsToDisplay[j].description;
     imageBoxes[j].name = productsToDisplay[j].name;
     productsToDisplay[j].timesShown++;
     productsOnPage.push(productsToDisplay[j]);
@@ -104,14 +111,18 @@ function renderList (){
   }
 }
 
-// Adds a chart to the page
+// Adds a bar and line chart and a pie chart to the page
 function makeChart(){
   var productNamesArray = [];
   var productVotesArray = [];
+  var productPercentageArray = [];
+  var productShownArray = [];
 
   for(var i = 0; i < allProducts.length; i++){
     productNamesArray.push(allProducts[i].description);
     productVotesArray.push(allProducts[i].timesClicked);
+    productPercentageArray.push(100 * allProducts[i].timesClicked / allProducts[i].timesShown);
+    productShownArray.push(allProducts[i].timesShown);
   }
 
   var ctx = document.getElementById('busmallChart').getContext('2d');
@@ -120,17 +131,72 @@ function makeChart(){
     data: {
       labels: productNamesArray,
       datasets: [{
-        label: '# of Votes',
+        label: 'Number of Votes',
         data: productVotesArray,
-        backgroundColor: 'rgba(58,109,148,0.2)',
+        backgroundColor: 'rgba(54, 162, 235, 0.4)',
         borderColor: 'rgba(23,55,97,1)',
         borderWidth: 1
+      }, {
+        
+        label: 'Number of Times Shown',
+        data: productShownArray,
+        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+        borderWidth: 1,
+        type: 'line'
       }]
     },
     options: {
       title: {
         display: true,
         text: 'Votes per product'
+      },
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true,
+            precision: 0
+          }
+        }]
+      }
+    }
+  });
+  var ctx = document.getElementById('busmallPieChart').getContext('2d');
+  var busmallPieChart = new Chart(ctx, {
+    type: 'pie',
+    data: {
+      labels: productNamesArray,
+      datasets: [{
+        label: 'Percentage Voted When Shown',
+        data: productPercentageArray,
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.4)',
+          'rgba(54, 162, 235, 0.4)',
+          'rgba(255, 206, 86, 0.4)',
+          'rgba(75, 192, 192, 0.4)',
+          'rgba(153, 102, 255, 0.4)',
+          'rgba(255, 159, 64, 0.4)',
+          'rgba(251,180,174,1)',
+          'rgba(179,205,227,1)',
+          'rgba(204,235,197,1)',
+          'rgba(222,203,228,1)',
+          'rgba(254,217,166,1)',
+          'rgba(255,255,204,1)',
+          'rgba(229,216,189,1)',
+          'rgba(253,218,236,1)',
+          'rgba(242,242,242,1)',
+          'rgba(194,165,207,1)',
+          'rgba(217,240,211,1)',
+          'rgba(241,182,218,1)',
+          'rgba(128,205,193,1)',
+          'rgba(253,219,199,1)'
+
+        ],
+      }]
+    },
+    options: {
+      title: {
+        display: true,
+        text: 'Percentage per product'
       },
       scales: {
         yAxes: [{
@@ -172,7 +238,9 @@ function handleClick(event){
 
 imageDisplay.addEventListener('click', handleClick);
 
-// Runs first on page to determine whether displaying new images or already images from local storage
+// ---------- Runs First ---------
+
+// Determines whether displaying new images or already images from local storage
 if(localStorage.getItem('stringProductsArray') === null){
   new Product('bag', 'img/bag.jpg', 'R2D2 bag');
   new Product('banana', 'img/banana.jpg', 'Banana slicer');
