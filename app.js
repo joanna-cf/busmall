@@ -126,16 +126,17 @@ function makeChart(){
       datasets: [{
         label: 'Number of Votes',
         data: productVotesArray,
-        backgroundColor: 'rgba(58,109,148,0.2)',
+        backgroundColor: 'rgba(54, 162, 235, 0.4)',
         borderColor: 'rgba(23,55,97,1)',
         borderWidth: 1
       }, {
         
         label: 'Number of Times Shown',
         data: productShownArray,
-        backgroundColor: 'rgba(152,11,13,0.2)',
-        borderColor: 'rgba(152,11,13,1)',
-        borderWidth: 1
+        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+        // borderColor: 'rgba(152,11,13,1)',
+        borderWidth: 1,
+        type: 'line'
       }]
     },
     options: {
@@ -161,9 +162,29 @@ function makeChart(){
       datasets: [{
         label: 'Percentage Voted When Shown',
         data: productPercentageArray,
-        // backgroundColor: 'rgba(58,109,148,0.2)',
-        // borderColor: 'rgba(23,55,97,1)',
-        // borderWidth: 1
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.4)',
+          'rgba(54, 162, 235, 0.4)',
+          'rgba(255, 206, 86, 0.4)',
+          'rgba(75, 192, 192, 0.4)',
+          'rgba(153, 102, 255, 0.4)',
+          'rgba(255, 159, 64, 0.4)',
+          'rgba(251,180,174,1)',
+          'rgba(179,205,227,1)',
+          'rgba(204,235,197,1)',
+          'rgba(222,203,228,1)',
+          'rgba(254,217,166,1)',
+          'rgba(255,255,204,1)',
+          'rgba(229,216,189,1)',
+          'rgba(253,218,236,1)',
+          'rgba(242,242,242,1)',
+          'rgba(194,165,207,1)',
+          'rgba(217,240,211,1)',
+          'rgba(241,182,218,1)',
+          'rgba(128,205,193,1)',
+          'rgba(253,219,199,1)'
+
+        ],
       }]
     },
     options: {

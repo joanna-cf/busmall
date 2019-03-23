@@ -50,7 +50,6 @@ main {
 }
 
 #display-images {
-  /* border: 2px dotted red; */
   float: left;
   margin: auto;
   width: 100%;
@@ -63,7 +62,6 @@ main {
 }
 
 #display-images ul {
-  /* border: 2px dotted orange; */
   height: 100%;
   margin: auto;
 }
@@ -72,8 +70,6 @@ main {
   float: left;
   margin-left: 6%;
   width: 26%;
-  /* background-color: yellow; */
-  /* border: 3px solid blue; */
 }
 
 #display-images img {
@@ -91,8 +87,7 @@ main {
 
 aside {
   float: left;
-  padding: 3%;
-  width: 33%
+  width: 33%;
 }
 
 aside ul {
@@ -105,10 +100,19 @@ aside h3 {
   font-size: 1.4em;
   text-decoration: underline;
   margin-bottom: 10%;
+  padding-top: 10%;
 }
 
 aside li {
-  margin-top: 3%;
+  margin: 5%;
+}
+
+aside ul:last-child {
+  padding-bottom: 5%;
+}
+
+aside ul:empty {
+  padding-bottom: 0;
 }
 
 #bar-section {
